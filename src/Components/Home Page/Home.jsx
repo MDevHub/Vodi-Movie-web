@@ -30,7 +30,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-[70px]">
+    <div className="">
       <Slider {...settings}>
         {movies.map((movie) => (
           <div key={movie.id} className="relative h-[100vh] w-full">
