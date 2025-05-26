@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import axios from 'axios';
 
@@ -6,32 +6,35 @@ const API_KEY = 'dc22c3c06d3bd543d80a04a985a39485';
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
       const res = await axios.get(
         `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
       );
-      setMovies(res.data.results.slice(0, 5)); // limit to top 5
+      setMovies(res.data.results.slice(0, 5));
     };
 
     fetchMovies();
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 700,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000,
-    arrows: false
+    arrows: false,
+    beforeChange: (_, next) => setActiveIndex(next),
   };
 
   return (
-    <div className="">
-      <Slider {...settings}>
+    <div className="cursor-grab">
+      <Slider ref={sliderRef} {...settings}>
         {movies.map((movie) => (
           <div key={movie.id} className="relative h-[100vh] w-full">
             <img
@@ -39,12 +42,37 @@ export default function Home() {
               alt={movie.title}
               className="object-cover w-full h-full"
             />
-            <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-10">
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{movie.title}</h1>
-              <p className="text-xl text-gray-200 mb-6">{new Date(movie.release_date).getFullYear()}</p>
-              <button className="px-6 py-3 bg-red-600 text-white rounded-full text-lg hover:bg-red-700 transition">
-                Watch Now
-              </button>
+
+            <div className="absolute inset-0 bg-black/50 flex flex-col justify-center px-5 md:px-16">
+
+               <p className="text-sm text-center sm:text-left text-white/80 mb-2">
+                  {new Date(movie.release_date).getFullYear()} &nbsp; | &nbsp;
+                  Action, Adventure &nbsp; | &nbsp; 1h 30m
+               </p>
+              <h1 className="text-3xl md:text-6xl text-center sm:text-left font-bold text-white mb-6">
+                {movie.title}
+              </h1>
+               <div className="sm:flex gap-6 mb-10">
+                  <button className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded">
+                     WATCH NOW
+                  </button>
+                  <button className="px-4 w-full sm:w-max py-3 border border-white text-white text-lg font-semibold rounded hover:bg-white hover:text-black transition">
+                     + PLAYLIST
+                  </button>
+               </div>
+               <div className="flex gap-3 overflow-x-auto hide-scrollbar">
+                  {movies.map((m, i) => (
+                  <img
+                     key={m.id}
+                     src={`https://image.tmdb.org/t/p/w200${m.poster_path}`}
+                     alt={m.title}
+                     onClick={() => sliderRef.current.slickGoTo(i)}
+                     className={`h-[100px] w-auto rounded shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300 ${
+                        i === activeIndex ? 'border-2 border-sky-500' : ''
+                     }`}
+                  />
+                  ))}
+               </div>
             </div>
           </div>
         ))}
