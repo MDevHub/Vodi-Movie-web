@@ -52,14 +52,14 @@ export default function Home() {
               <h1 className="text-3xl md:text-6xl text-center sm:text-left font-bold text-white mb-6">
                 {movie.title}
               </h1>
-               <div className="sm:flex gap-6 mb-10">
+                <div className="sm:flex gap-6 mb-10">
                   <button className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded">
-                     WATCH NOW
+                      WATCH NOW
                   </button>
                   <button className="px-4 w-full sm:w-max py-3 border border-white text-white text-lg font-semibold rounded hover:bg-white hover:text-black transition">
-                     + PLAYLIST
+                      + PLAYLIST
                   </button>
-               </div>
+                </div>
                <div className="flex gap-3 overflow-x-auto hide-scrollbar">
                   {movies.map((m, i) => (
                   <img

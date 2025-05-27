@@ -41,7 +41,7 @@ const Sector4 = () => {
   };
 
   return (
-    <div className="bg-[#05030e] px-5 md:px-16 py-6">
+    <div className="bg-[#05030e] px-5 md:px-16 py-6 md:py-9">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0 text-left">
         <div>
           <p className="text-2xl text-white font-semibold transition-all duration-300">
