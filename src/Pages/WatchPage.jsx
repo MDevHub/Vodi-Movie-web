@@ -48,7 +48,7 @@ export default function WatchPage() {
     <div className="text-white px-4 md:px-16 py-8">
       {/* Breadcrumb */}
       <div className="mb-4 text-sm text-white/70">
-        <Link to="/" className="hover:underline">
+        <Link to="/home" className="hover:underline">
           Home
         </Link>{' '}
         / <span>{movie.title}</span>
