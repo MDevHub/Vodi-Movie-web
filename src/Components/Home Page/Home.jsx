@@ -45,10 +45,10 @@ export default function Home() {
 
             <div className="absolute inset-0 bg-black/50 flex flex-col justify-center px-5 md:px-16">
 
-               <p className="text-sm text-center sm:text-left text-white/80 mb-2">
+                <p className="text-sm text-center sm:text-left text-white/80 mb-2">
                   {new Date(movie.release_date).getFullYear()} &nbsp; | &nbsp;
                   Action, Adventure &nbsp; | &nbsp; 1h 30m
-               </p>
+                </p>
               <h1 className="text-3xl md:text-6xl text-center sm:text-left font-bold text-white mb-6">
                 {movie.title}
               </h1>
