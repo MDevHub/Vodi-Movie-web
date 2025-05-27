@@ -4,6 +4,7 @@ import NavBar from './Components/Layout/NavBar';
 import Footer from './Components/Layout/Footer';
 import Page1 from './Pages/Page1';
 import WatchPage from './Pages/WatchPage';
+import Blog from './Pages/Blog';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Page1 />} />
 						<Route path="/watch/:id" element={<WatchPage />} />
+						<Route path="/blog" element={<Blog />} />
 					</Routes>
 				</main>
 

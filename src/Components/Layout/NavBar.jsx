@@ -1,12 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaSearch, FaUser, FaChevronDown } from 'react-icons/fa';
+
+const API_KEY = 'dc22c3c06d3bd543d80a04a985a39485';
 
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const menuRef = useRef();
+  const dropdownRef = useRef();
+  const searchRef = useRef();
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -25,12 +32,53 @@ export default function Navbar() {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setMenuOpen(false);
       }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchResults([]);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (!searchQuery) {
+      setSearchResults([]);
+      return;
+    }
+    const fetchResults = async () => {
+      try {
+        const res = await fetch(
+          `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(
+            searchQuery
+          )}&page=1&include_adult=false`
+        );
+        const data = await res.json();
+        if (data.results) {
+          setSearchResults(data.results.slice(0, 8)); // limit results
+        }
+      } catch (error) {
+        console.error('Search error:', error);
+      }
+    };
+
+    const delayDebounceFn = setTimeout(() => {
+      fetchResults();
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery]);
+
+  const handleResultClick = (id) => {
+    setSearchResults([]);
+    setSearchQuery('');
+    navigate(`/watch/${id}`);
+    setMobileSearchOpen(false);
+  };
 
   return (
     <>
@@ -49,13 +97,18 @@ export default function Navbar() {
         {/* Hamburger Sidebar */}
         <div
           ref={menuRef}
-          className={`fixed top-0 left-0 h-full bg-black text-white z-50 transition-all duration-300 p-6 transform ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`fixed top-0 left-0 h-full bg-black text-white z-50 transition-all duration-300 p-6 transform ${
+            menuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
           style={{ width: window.innerWidth < 768 ? '70%' : '20%' }}
         >
           <div className="flex flex-col space-y-6">
-            <Link to="/" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Home</Link>
-            <Link to="/movies" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Movies</Link>
-            <Link to="/blog" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Blog</Link>
+            <Link to="/" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
+              Home
+            </Link>
+            <Link to="/blog" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
+              Blog
+            </Link>
           </div>
         </div>
 
@@ -63,13 +116,16 @@ export default function Navbar() {
         <div className="flex items-center space-x-6">
           {/* Nav Links */}
           <div className="hidden md:flex space-x-12">
-            <Link to="/" className="hover:text-gray-400">Home</Link>
-            <Link to="/movies" className="hover:text-gray-400">Movies</Link>
-            <Link to="/blog" className="hover:text-gray-400">Blog</Link>
+            <Link to="/" className="hover:text-gray-400">
+              Home
+            </Link>
+            <Link to="/blog" className="hover:text-gray-400">
+              Blog
+            </Link>
           </div>
 
           {/* Search */}
-          <div className="relative">
+          <div className="relative" ref={searchRef}>
             {/* Mobile: Only icon visible */}
             <button onClick={toggleMobileSearch} className="md:hidden">
               <FaSearch className="text-gray-400" />
@@ -82,12 +138,42 @@ export default function Navbar() {
                 type="text"
                 placeholder="Search..."
                 className="pl-10 pr-4 py-2 rounded-full border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-600"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
+              {searchResults.length > 0 && (
+                <div
+                  className="absolute top-full mt-2 w-full max-h-60 overflow-y-auto bg-black text-white rounded shadow-lg scrollbar-none"
+                  style={{
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                  }}
+                >
+                  {/* Hide scrollbar for Webkit browsers */}
+                  <style>
+                    {`
+                      .scrollbar-none::-webkit-scrollbar {
+                        display: none;
+                      }
+                    `}
+                  </style>
+                  {searchResults.map((result) => (
+                    <div
+                      key={result.id}
+                      className="px-4 py-2 hover:bg-gray-700 cursor-pointer truncate"
+                      onClick={() => handleResultClick(result.id)}
+                      title={result.title || result.name}
+                    >
+                      {result.title || result.name}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
           {/* Profile Dropdown */}
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               onClick={toggleDropdown}
               className="flex items-center space-x-1 hover:text-gray-400 focus:outline-none"
@@ -99,8 +185,12 @@ export default function Navbar() {
             </button>
             {dropdownOpen && (
               <div className="absolute right-0 mt-5 w-40 bg-white text-black rounded shadow-lg">
-                <Link to="/login" className="block px-4 py-2 hover:bg-gray-700">Log In</Link>
-                <Link to="/register" className="block px-4 py-2 hover:bg-gray-700">Register</Link>
+                <Link to="/login" className="block px-4 py-2 hover:bg-gray-700">
+                  Log In
+                </Link>
+                <Link to="/register" className="block px-4 py-2 hover:bg-gray-700">
+                  Register
+                </Link>
               </div>
             )}
           </div>
@@ -114,7 +204,36 @@ export default function Navbar() {
             type="text"
             placeholder="Search..."
             className="w-full px-4 py-2 rounded-full border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-300"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
+          {searchResults.length > 0 && (
+            <div
+              className="mt-2 max-h-60 overflow-y-auto bg-black text-white rounded shadow-lg scrollbar-none"
+              style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+              }}
+            >
+              <style>
+                {`
+                  .scrollbar-none::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}
+              </style>
+              {searchResults.map((result) => (
+                <div
+                  key={result.id}
+                  className="px-4 py-2 hover:bg-gray-700 cursor-pointer truncate"
+                  onClick={() => handleResultClick(result.id)}
+                  title={result.title || result.name}
+                >
+                  {result.title || result.name}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </>
