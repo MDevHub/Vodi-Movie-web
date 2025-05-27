@@ -33,9 +33,6 @@ const Sector2 = () => {
     fetchTopMovies();
   }, [filter]);
 
-  // Filter videos by genre if filter is set
-  // Actually the API already filters, so no need to filter client-side
-
   // Scroll handlers
   const scrollLeft = () => {
     scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
@@ -89,11 +86,13 @@ const Sector2 = () => {
               className="flex-shrink-0 w-[180px] md:w-[200px]"
               style={{ scrollSnapAlign: 'start' }}
             >
-              <img
-                src={`https://image.tmdb.org/t/p/w500${vid.poster_path}`}
-                alt={vid.title}
-                className="w-full h-[200px] object-cover rounded"
-              />
+              <Link to={`/watch/${vid.id}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${vid.poster_path}`}
+                  alt={vid.title}
+                  className="w-full h-[200px] object-cover rounded cursor-pointer"
+                />
+              </Link>
               <Link
                 to={`/watch/${vid.id}`}
                 className="block mt-2 text-sm font-semibold text-white hover:text-sky-500 max-w-full truncate"
@@ -103,7 +102,6 @@ const Sector2 = () => {
               </Link>
               <p className="text-xs text-white/70 truncate max-w-full">
                 {vid.release_date?.slice(0, 4)} • {vid.genre_ids?.length ? vid.genre_ids.map(id => {
-                  // Using simplified genreMap similar to Sector1
                   const genreMap = {
                     28: 'Action',
                     878: 'Sci-Fi',
@@ -130,7 +128,7 @@ const Sector2 = () => {
       <hr className="border-white/20 mt-6" />
       <div className="flex justify-end mt-1">
         <Link
-          to="/movies/2025"
+          to="/"
           className="text-white hover:text-sky-500 flex items-center gap-1 font-semibold"
         >
           View All <span className="text-xl font-bold">&gt;</span>

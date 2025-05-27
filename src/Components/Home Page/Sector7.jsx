@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Page1 from '../../Pages/Page1';
 
 const API_KEY = 'dc22c3c06d3bd543d80a04a985a39485';
 
@@ -49,7 +50,7 @@ const Sector7 = () => {
       <hr className="border-white/20 mt-8" />
       <div className="flex justify-end mt-2">
          <Link
-            to=""
+            to="/"
             className="text-white hover:text-sky-500 flex items-center gap-1 font-semibold"
          >
             View All <span className="text-xl font-bold">&gt;</span>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const API_KEY = 'dc22c3c06d3bd543d80a04a985a39485';
 
@@ -53,9 +54,11 @@ export default function Home() {
                 {movie.title}
               </h1>
                 <div className="sm:flex gap-6 mb-10">
-                  <button className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded">
+                  <Link to={`/watch/${movie.id}`}>
+                    <button className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded">
                       WATCH NOW
-                  </button>
+                    </button>
+                  </Link>
                   <button className="px-4 w-full sm:w-max py-3 border border-white text-white text-lg font-semibold rounded hover:bg-white hover:text-black transition">
                       + PLAYLIST
                   </button>

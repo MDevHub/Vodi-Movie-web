@@ -78,11 +78,13 @@ const Sector3 = () => {
               key={vid.id}
               className="min-w-[200px] max-w-[200px] bg-white/5 p-2 rounded-lg shadow flex-shrink-0"
             >
-              <img
-                src={`https://image.tmdb.org/t/p/w300${vid.poster_path}`}
-                alt={vid.name || vid.original_name}
-                className="w-full h-28 object-cover rounded"
-              />
+              <Link to={`/watch/${vid.id}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${vid.poster_path}`}
+                  alt={vid.name || vid.original_name}
+                  className="w-full h-28 object-cover rounded"
+                />
+              </Link>
               <div className="mt-2">
                 <Link
                   to={`/watch/${vid.id}`}
@@ -111,7 +113,7 @@ const Sector3 = () => {
       <hr className="border-t border-white/20 mt-6" />
       <div className="flex justify-end mt-2">
         <Link
-          to="/newest-episodes"
+          to="/"
           className="text-sm text-white hover:text-sky-500 font-semibold flex items-center gap-1"
         >
           View All &gt;
