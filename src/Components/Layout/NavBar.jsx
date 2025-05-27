@@ -89,7 +89,7 @@ export default function Navbar() {
             <FaBars size={17} className="text-gray-100" />
           </button>
 
-          <Link to="/" className="text-3xl font-bold font-poppins">
+          <Link to="/home" className="text-3xl font-bold font-poppins">
             Vodi
           </Link>
         </div>
@@ -103,7 +103,7 @@ export default function Navbar() {
           style={{ width: window.innerWidth < 768 ? '70%' : '20%' }}
         >
           <div className="flex flex-col space-y-6">
-            <Link to="/" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
+            <Link to="/home" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
               Home
             </Link>
             <Link to="/blog" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
@@ -116,7 +116,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-6">
           {/* Nav Links */}
           <div className="hidden md:flex space-x-12">
-            <Link to="/" className="hover:text-gray-400">
+            <Link to="/home" className="hover:text-gray-400">
               Home
             </Link>
             <Link to="/blog" className="hover:text-gray-400">
