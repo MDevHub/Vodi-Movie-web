@@ -19,7 +19,7 @@ const Sector5 = () => {
   if (!movie) return null;
 
   return (
-    <div className="relative h-[100vh] w-full bg-black cursor-grab">
+    <div className="relative h-[100vh] w-full bg-black cursor-default">
       <img
         src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
         alt={movie.title}
