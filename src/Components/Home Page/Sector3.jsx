@@ -113,7 +113,7 @@ const Sector3 = () => {
       <hr className="border-t border-white/20 mt-6" />
       <div className="flex justify-end mt-2">
         <Link
-          to="/"
+          to="/home"
           className="text-sm text-white hover:text-sky-500 font-semibold flex items-center gap-1"
         >
           View All &gt;

@@ -128,7 +128,7 @@ const Sector2 = () => {
       <hr className="border-white/20 mt-6" />
       <div className="flex justify-end mt-1">
         <Link
-          to="/"
+          to="/home"
           className="text-white hover:text-sky-500 flex items-center gap-1 font-semibold"
         >
           View All <span className="text-xl font-bold">&gt;</span>

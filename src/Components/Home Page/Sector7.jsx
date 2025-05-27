@@ -50,7 +50,7 @@ const Sector7 = () => {
       <hr className="border-white/20 mt-8" />
       <div className="flex justify-end mt-2">
          <Link
-            to="/"
+            to="/home"
             className="text-white hover:text-sky-500 flex items-center gap-1 font-semibold"
          >
             View All <span className="text-xl font-bold">&gt;</span>
