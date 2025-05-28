@@ -69,7 +69,7 @@ const Sector2 = () => {
         <button
           onClick={scrollLeft}
           aria-label="Scroll Left"
-          className="absolute top-1/2 left-0 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-sky-600 transition-colors"
+          className="absolute top-1/2 left-0 -translate-y-1/2 z-10 p-2 bg-stone-900/50 rounded-full hover:bg-sky-600 transition-colors"
           style={{ color: 'white', fontSize: '28px' }}
         >
           ‹
@@ -118,7 +118,7 @@ const Sector2 = () => {
         <button
           onClick={scrollRight}
           aria-label="Scroll Right"
-          className="absolute top-1/2 right-0 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-sky-600 transition-colors"
+          className="absolute top-1/2 right-0 -translate-y-1/2 z-10 p-2 bg-stone-900/50 rounded-full hover:bg-sky-600 transition-colors"
           style={{ color: 'white', fontSize: '28px' }}
         >
           ›
