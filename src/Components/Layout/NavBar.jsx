@@ -83,18 +83,15 @@ export default function Navbar() {
   return (
     <>
       <nav className="bg-black text-white p-4 flex items-center justify-between px-[6vw] fixed top-0 w-full z-50">
-        {/* Hamburger & Logo */}
         <div className="flex items-center space-x-4">
           <button aria-label="Menu" onClick={toggleMenu}>
             <FaBars size={17} className="text-gray-100" />
           </button>
-
           <Link to="/home" className="text-3xl font-bold font-poppins">
             Vodi
           </Link>
         </div>
 
-        {/* Hamburger Sidebar */}
         <div
           ref={menuRef}
           className={`fixed top-0 left-0 h-full bg-black text-white z-50 transition-all duration-300 p-6 transform ${
@@ -112,9 +109,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Links & Search & Profile */}
         <div className="flex items-center space-x-6">
-          {/* Nav Links */}
           <div className="hidden md:flex space-x-12">
             <Link to="/home" className="hover:text-gray-400">
               Home
@@ -124,14 +119,11 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Search */}
           <div className="relative" ref={searchRef}>
-            {/* Mobile: Only icon visible */}
             <button onClick={toggleMobileSearch} className="md:hidden">
               <FaSearch className="text-gray-400" />
             </button>
 
-            {/* Desktop: Full search bar */}
             <div className="hidden md:block">
               <FaSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -144,12 +136,8 @@ export default function Navbar() {
               {searchResults.length > 0 && (
                 <div
                   className="absolute top-full mt-2 w-full max-h-60 overflow-y-auto bg-black text-white rounded shadow-lg scrollbar-none"
-                  style={{
-                    scrollbarWidth: 'none',
-                    msOverflowStyle: 'none',
-                  }}
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
-                  {/* Hide scrollbar for Webkit browsers */}
                   <style>
                     {`
                       .scrollbar-none::-webkit-scrollbar {
@@ -172,7 +160,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Profile Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={toggleDropdown}
@@ -197,7 +184,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Expanded Search */}
       {mobileSearchOpen && (
         <div className="md:hidden bg-black px-4 pb-4 pt-2 fixed top-[68px] w-full z-40">
           <input
@@ -210,10 +196,7 @@ export default function Navbar() {
           {searchResults.length > 0 && (
             <div
               className="mt-2 max-h-60 overflow-y-auto bg-black text-white rounded shadow-lg scrollbar-none"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-              }}
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               <style>
                 {`
@@ -226,7 +209,10 @@ export default function Navbar() {
                 <div
                   key={result.id}
                   className="px-4 py-2 hover:bg-gray-700 cursor-pointer truncate"
-                  onClick={() => handleResultClick(result.id)}
+                  onClick={() => {
+                    handleResultClick(result.id);
+                    setMobileSearchOpen(false);
+                  }}
                   title={result.title || result.name}
                 >
                   {result.title || result.name}
