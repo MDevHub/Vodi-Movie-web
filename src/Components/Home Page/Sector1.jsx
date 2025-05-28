@@ -105,7 +105,7 @@ const Sector1 = () => {
                   className="w-full h-full object-cover"
                 />
               </Link>
-              <div className="absolute inset-0 bg-black/50 p-6 flex flex-col justify-end">
+              <div className="absolute inset-0 bg-stone-900/50 p-6 flex flex-col justify-end">
                 <Link
                   to={`/watch/${first.id}`}
                   className="text-2xl font-bold text-white hover:text-sky-400 mb-2"

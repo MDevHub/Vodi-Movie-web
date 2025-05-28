@@ -11,7 +11,7 @@ const Sector5 = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=War%20for%20the%20Planet%20of%20the%20Apes`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=Bilal%3A%20A%20New%20Breed%20of%20Hero`
       );
       if (res.data.results.length > 0) setMovie(res.data.results[0]);
     };

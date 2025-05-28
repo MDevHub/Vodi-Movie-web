@@ -12,10 +12,26 @@ export default function Home() {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const res = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
-      );
-      setMovies(res.data.results.slice(0, 5));
+      const titles = [
+        "Bilal: A New Breed of Hero",
+        "The Message",
+        "Muhammad: The Last Prophet",
+        "The Prince of Egypt",
+        "Joseph: King of Dreams"
+      ];
+
+      const results = [];
+
+      for (let title of titles) {
+        const res = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(title)}`
+        );
+        if (res.data.results.length > 0) {
+          results.push(res.data.results[0]);
+        }
+      }
+
+      setMovies(results);
     };
 
     fetchMovies();
@@ -39,43 +55,42 @@ export default function Home() {
         {movies.map((movie) => (
           <div key={movie.id} className="relative h-[100vh] w-full">
             <img
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`}
               alt={movie.title}
               className="object-cover w-full h-full"
             />
 
             <div className="absolute inset-0 bg-black/50 flex flex-col justify-center px-5 md:px-16">
-
-                <p className="text-sm text-center sm:text-left text-white/80 mb-2">
-                  {new Date(movie.release_date).getFullYear()} &nbsp; | &nbsp;
-                  Action, Adventure &nbsp; | &nbsp; 1h 30m
-                </p>
+              <p className="text-sm text-center sm:text-left text-white/80 mb-2">
+                {movie.release_date ? new Date(movie.release_date).getFullYear() : "Unknown"} &nbsp; | &nbsp;
+                Animation, History &nbsp; | &nbsp; ~90 mins
+              </p>
               <h1 className="text-3xl md:text-6xl text-center sm:text-left font-bold text-white mb-6">
                 {movie.title}
               </h1>
-                <div className="sm:flex gap-6 mb-10">
-                  <Link to={`/watch/${movie.id}`}>
-                    <button className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded">
-                      WATCH NOW
-                    </button>
-                  </Link>
-                  <button className="px-4 w-full sm:w-max py-3 border border-white text-white text-lg font-semibold rounded hover:bg-white hover:text-black transition">
-                      + PLAYLIST
+              <div className="sm:flex gap-6 mb-10">
+                <Link to={`/watch/${movie.id}`}>
+                  <button className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded">
+                    WATCH NOW
                   </button>
-                </div>
-               <div className="flex gap-3 overflow-x-auto hide-scrollbar">
-                  {movies.map((m, i) => (
+                </Link>
+                <button className="px-4 w-full sm:w-max py-3 border border-white text-white text-lg font-semibold rounded hover:bg-white hover:text-black transition">
+                  + PLAYLIST
+                </button>
+              </div>
+              <div className="flex gap-3 overflow-x-auto hide-scrollbar">
+                {movies.map((m, i) => (
                   <img
-                     key={m.id}
-                     src={`https://image.tmdb.org/t/p/w200${m.poster_path}`}
-                     alt={m.title}
-                     onClick={() => sliderRef.current.slickGoTo(i)}
-                     className={`h-[100px] w-auto rounded shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300 ${
-                        i === activeIndex ? 'border-2 border-sky-500' : ''
-                     }`}
+                    key={m.id}
+                    src={`https://image.tmdb.org/t/p/w200${m.poster_path}`}
+                    alt={m.title}
+                    onClick={() => sliderRef.current.slickGoTo(i)}
+                    className={`h-[100px] w-auto rounded shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300 ${
+                      i === activeIndex ? 'border-2 border-sky-500' : ''
+                    }`}
                   />
-                  ))}
-               </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}

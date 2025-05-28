@@ -8,7 +8,7 @@ export default function Footer() {
       <footer className="bg-black text-white lg:py-10 px-[6vw]">
         {/* Logo and Social Row */}
         <div className="hidden lg:flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold font-poppins">Vodi</h1>
+          <h1 className="text-3xl font-bold font-poppins">CineMa</h1>
           <div className="flex space-x-6 ">
             <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white">
               <FaFacebook size={20} />
@@ -69,9 +69,9 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-      <div className='py-4 bg-[#131212] '>
+      <div className='py-4 bg-black '>
         {/* Copyright */}
-        <p className="text-center text-gray-500 text-sm">&copy; {new Date().getFullYear()} Vodi. All rights reserved.</p>
+        <p className="text-center text-gray-500 text-sm">&copy; {new Date().getFullYear()} CineMa. All rights reserved.</p>
       </div>
     </div>
   );
