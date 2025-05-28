@@ -43,7 +43,7 @@ export default function Blog() {
                 <p className="text-gray-400 text-sm mb-4 line-clamp-3">{movie.overview}</p>
                 <button
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
-                  onClick={() => navigate('')}
+                  onClick={() => navigate('/readblog')}
                 >
                   Read More
                 </button>
