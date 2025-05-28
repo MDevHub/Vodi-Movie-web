@@ -128,7 +128,7 @@ export default function Navbar() {
               <FaSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search Movies..."
                 className="pl-10 pr-4 py-2 rounded-full border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-600"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -188,7 +188,7 @@ export default function Navbar() {
         <div className="md:hidden bg-black px-4 pb-4 pt-2 fixed top-[68px] w-full z-40">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search Movies..."
             className="w-full px-4 py-2 rounded-full border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-300"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
