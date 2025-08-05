@@ -96,111 +96,114 @@
 
 	return (
 		<>
-			<nav className="bg-black text-white p-4 flex items-center justify-between px-[6vw] fixed top-0 w-full z-50">
-			<div className="flex items-center space-x-4">
-				<button aria-label="Menu" onClick={toggleMenu}>
-					<FaBars size={17} className="text-gray-100" />
-				</button>
-				<Link to="/home" className="text-3xl font-bold font-poppins">
-					Vodi
-				</Link>
-			</div>
-
-			<div
-				ref={menuRef}
-				className={`fixed top-0 left-0 h-full bg-black text-white z-50 transition-all duration-300 p-6 transform ${
-					menuOpen ? 'translate-x-0' : '-translate-x-full'
-				}`}
-				style={{ width: window.innerWidth < 768 ? '70%' : '20%' }}
-			>
-				<div className="flex flex-col space-y-6">
-					<Link to="/home" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
-					Home
-					</Link>
-					<Link to="/blog" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
-					Blog
-					</Link>
-				</div>
-			</div>
-
-			<div className="flex items-center space-x-6">
-				<div className="hidden md:flex space-x-12">
-					<Link to="/home" className="hover:text-gray-400">
-					Home
-					</Link>
-					<Link to="/blog" className="hover:text-gray-400">
-					Blog
-					</Link>
-				</div>
-
-				<div className="relative" ref={searchRef}>
-					<button onClick={toggleMobileSearch} className="md:hidden">
-					<FaSearch className="text-gray-400" />
+		<nav className="bg-black text-white p-4 fixed top-0 w-full z-50">
+			<div className="max-w-[1400px] w-full mx-auto flex items-center justify-between px-[6vw]">
+				<div className="flex items-center space-x-4">
+					<button aria-label="Menu" onClick={toggleMenu}>
+						<FaBars size={17} className="text-gray-100" />
 					</button>
+					<Link to="/home" className="text-3xl font-bold font-poppins">
+						Vodi
+					</Link>
+				</div>
 
-					<div className="hidden md:block">
-					<FaSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
-					<input
-						type="text"
-						placeholder="Search Movies..."
-						className="pl-10 pr-4 py-2 rounded-full border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-600"
-						value={searchQuery}
-						onChange={(e) => setSearchQuery(e.target.value)}
-					/>
-					{searchResults.length > 0 && (
-						<div
-							className="absolute top-full mt-2 w-full max-h-60 overflow-y-auto bg-black text-white rounded shadow-lg scrollbar-none"
-							style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-						>
-							<style>
-							{`
-								.scrollbar-none::-webkit-scrollbar {
-									display: none;
-								}
-							`}
-							</style>
-							{searchResults.map((result) => (
+
+				<div
+					ref={menuRef}
+					className={`fixed top-0 left-0 h-full bg-black text-white z-50 transition-all duration-300 p-6 transform ${
+						menuOpen ? 'translate-x-0' : '-translate-x-full'
+					}`}
+					style={{ width: window.innerWidth < 768 ? '70%' : '20%' }}
+				>
+					<div className="flex flex-col space-y-6">
+						<Link to="/home" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
+						Home
+						</Link>
+						<Link to="/blog" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>
+						Blog
+						</Link>
+					</div>
+				</div>
+
+				<div className="flex items-center space-x-6">
+					<div className="hidden md:flex space-x-12">
+						<Link to="/home" className="hover:text-gray-400">
+						Home
+						</Link>
+						<Link to="/blog" className="hover:text-gray-400">
+						Blog
+						</Link>
+					</div>
+
+					<div className="relative" ref={searchRef}>
+						<button onClick={toggleMobileSearch} className="md:hidden">
+						<FaSearch className="text-gray-400" />
+						</button>
+
+						<div className="hidden md:block">
+						<FaSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
+						<input
+							type="text"
+							placeholder="Search Movies..."
+							className="pl-10 pr-4 py-2 rounded-full border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-600"
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+						/>
+						{searchResults.length > 0 && (
 							<div
-								key={result.id}
-								className="px-4 py-2 hover:bg-gray-700 cursor-pointer truncate"
-								onClick={() => handleResultClick(result.id)}
-								title={result.title || result.name}
+								className="absolute top-full mt-2 w-full max-h-60 overflow-y-auto bg-black text-white rounded shadow-lg scrollbar-none"
+								style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
 							>
-								{result.title || result.name}
+								<style>
+								{`
+									.scrollbar-none::-webkit-scrollbar {
+										display: none;
+									}
+								`}
+								</style>
+								{searchResults.map((result) => (
+								<div
+									key={result.id}
+									className="px-4 py-2 hover:bg-gray-700 cursor-pointer truncate"
+									onClick={() => handleResultClick(result.id)}
+									title={result.title || result.name}
+								>
+									{result.title || result.name}
+								</div>
+								))}
 							</div>
-							))}
+						)}
 						</div>
-					)}
 					</div>
-				</div>
 
-				<div className="relative" ref={dropdownRef}>
-					<button
-					onClick={toggleDropdown}
-					className="flex items-center space-x-1 hover:text-gray-400 focus:outline-none"
-					>
-					<div className="bg-gray-700 p-2 rounded-full">
-						<FaUser size={18} />
-					</div>
-					<FaChevronDown size={12} />
-					</button>
-					{dropdownOpen && (
-					<div className="absolute right-0 mt-5 w-40 bg-white text-black rounded shadow-lg">
-						{user ? (
-							<button
-							onClick={handleLogout}
-							className="w-full text-left px-4 py-2 hover:bg-gray-700"
-							>
-							Logout
-							</button>
-						) : (
-							<div className="px-4 py-2 text-gray-500">Not logged in</div>
+					<div className="relative" ref={dropdownRef}>
+						<button
+						onClick={toggleDropdown}
+						className="flex items-center space-x-1 hover:text-gray-400 focus:outline-none"
+						>
+						<div className="bg-gray-700 p-2 rounded-full">
+							<FaUser size={18} />
+						</div>
+						<FaChevronDown size={12} />
+						</button>
+						{dropdownOpen && (
+						<div className="absolute right-0 mt-5 w-40 bg-white text-black rounded shadow-lg">
+							{user ? (
+								<button
+								onClick={handleLogout}
+								className="w-full text-left px-4 py-2 hover:bg-gray-700"
+								>
+								Logout
+								</button>
+							) : (
+								<div className="px-4 py-2 text-gray-500">Not logged in</div>
+							)}
+						</div>
 						)}
 					</div>
-					)}
 				</div>
 			</div>
-			</nav>
+		</nav>
 
 			{mobileSearchOpen && (
 			<div className="md:hidden bg-black px-4 pb-4 pt-2 fixed top-[68px] w-full z-40">
@@ -240,6 +243,7 @@
 				)}
 			</div>
 			)}
+			
 		</>
 	);
 	}

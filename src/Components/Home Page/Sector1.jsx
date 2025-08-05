@@ -66,7 +66,7 @@ const Sector1 = () => {
   };
 
   return (
-    <div className="bg-[#05030e] px-5 md:px-16 py-10">
+    <div className="bg-[#05030e] px-5 md:px-16 py-10 mx-auto max-w-[1400px]">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0 text-left">
         <div>
           <p className="text-2xl text-white font-semibold transition-all duration-300">

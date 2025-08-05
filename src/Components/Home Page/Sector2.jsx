@@ -43,6 +43,7 @@ const Sector2 = () => {
 
   return (
     <div className="bg-[black] px-5 md:px-16 py-6">
+      <div className='w-full mx-auto max-w-[1250px]'>
       <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0 text-left">
         <div>
           <p className="text-2xl text-white font-semibold transition-all duration-300">
@@ -133,6 +134,7 @@ const Sector2 = () => {
         >
           View All <span className="text-xl font-bold">&gt;</span>
         </Link>
+      </div>
       </div>
     </div>
   );

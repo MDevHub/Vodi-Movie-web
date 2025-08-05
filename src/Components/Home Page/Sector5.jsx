@@ -28,39 +28,41 @@ const Sector5 = () => {
         className="object-cover w-full h-full"
       />
       <div className="absolute inset-0 bg-black/50 flex items-center px-5 md:px-16">
-         <div className="max-w-3xl text-white w-full md:w-auto">
-            <p className="text-sm mb-2 text-white/80">
-            {new Date(movie.release_date).getFullYear()} &nbsp; | &nbsp; {movie.genre_ids?.join(', ') || 'N/A'} &nbsp; | &nbsp; 1h 30m
-            </p>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">{movie.title}</h1>
-            <p className="text-white/80 mb-10 max-h-40 overflow-y-auto hide-scrollbar">{movie.overview}</p>
-            <div className="sm:flex gap-6 mb-10">
-                  <button
-                    onClick={() => navigate(`/watch/${movie.id}`)}  // <-- navigate on click
-                    className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded"
-                  >
-                      WATCH NOW
-                  </button>
-                  <button className="px-4 w-full sm:w-max py-3 border border-white text-white text-lg font-semibold rounded hover:bg-white hover:text-black transition">
-                      + PLAYLIST
-                  </button>
-            </div>
-         </div>
+        <div className='w-full mx-auto max-w-[1250px]'>
+          <div className="max-w-3xl text-white w-full md:w-auto">
+              <p className="text-sm mb-2 text-white/80">
+              {new Date(movie.release_date).getFullYear()} &nbsp; | &nbsp; {movie.genre_ids?.join(', ') || 'N/A'} &nbsp; | &nbsp; 1h 30m
+              </p>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">{movie.title}</h1>
+              <p className="text-white/80 mb-10 max-h-40 overflow-y-auto hide-scrollbar">{movie.overview}</p>
+              <div className="sm:flex gap-6 mb-10">
+                    <button
+                      onClick={() => navigate(`/watch/${movie.id}`)}  // <-- navigate on click
+                      className="mb-6 sm:mb-0 px-4 py-3 w-full sm:max-w-max bg-sky-500 hover:bg-sky-600 transition text-white text-lg font-semibold rounded"
+                    >
+                        WATCH NOW
+                    </button>
+                    <button className="px-4 w-full sm:w-max py-3 border border-white text-white text-lg font-semibold rounded hover:bg-white hover:text-black transition">
+                        + PLAYLIST
+                    </button>
+              </div>
+          </div>
 
-        {/* Circle play only visible on md+ */}
-         <div className="ml-auto relative items-center justify-center w-48 h-48 hidden lg:flex">
-            <div className="absolute rounded-full border-4 border-cream opacity-30 w-48 h-48 hover:border-8 transition-border duration-300"></div>
-            <svg
-              onClick={() => navigate(`/watch/${movie.id}`)}  // <-- navigate on click
-              xmlns="http://www.w3.org/2000/svg"
-              className="relative w-20 h-20 text-sky-600 opacity-70 cursor-pointer hover:opacity-90 transition-colors duration-300"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              stroke="none"
-            >
-            <path d="M8 5v14l11-7z" />
-            </svg>
-         </div>
+          {/* Circle play only visible on md+ */}
+          <div className="ml-auto relative items-center justify-center w-48 h-48 hidden lg:flex">
+              <div className="absolute rounded-full border-4 border-cream opacity-30 w-48 h-48 hover:border-8 transition-border duration-300"></div>
+              <svg
+                onClick={() => navigate(`/watch/${movie.id}`)}  // <-- navigate on click
+                xmlns="http://www.w3.org/2000/svg"
+                className="relative w-20 h-20 text-sky-600 opacity-70 cursor-pointer hover:opacity-90 transition-colors duration-300"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                stroke="none"
+              >
+              <path d="M8 5v14l11-7z" />
+              </svg>
+          </div>
+        </div>
       </div>
     </div>
   );

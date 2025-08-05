@@ -46,76 +46,78 @@ export default function WatchPage() {
 
   return (
     <div className="text-white px-4 md:px-16 py-8">
-      {/* Breadcrumb */}
-      <div className="mb-4 text-sm text-white/70">
-        <Link to="/home" className="hover:underline">
-          Home
-        </Link>{' '}
-        / <span>{movie.title}</span>
-      </div>
+      <div className='w-full mx-auto max-w-[1250px]'>
+        {/* Breadcrumb */}
+        <div className="mb-4 text-sm text-white/70">
+          <Link to="/home" className="hover:underline">
+            Home
+          </Link>{' '}
+          / <span>{movie.title}</span>
+        </div>
 
-      {/* Video Player */}
-      <div className="relative pb-[40.25%] h-0 mb-6 rounded overflow-hidden">
-        {trailerKey ? (
-          <iframe
-            src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&controls=1`}
-            title="Movie Video"
-            allowFullScreen
-            className="absolute top-0 left-0 w-full h-full"
-          />
-        ) : (
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black text-white">
-            Video not available
+        {/* Video Player */}
+        <div className="relative pb-[40.25%] h-0 mb-6 rounded overflow-hidden">
+          {trailerKey ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&controls=1`}
+              title="Movie Video"
+              allowFullScreen
+              className="absolute top-0 left-0 w-full h-full"
+            />
+          ) : (
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black text-white">
+              Video not available
+            </div>
+          )}
+        </div>
+
+        {/* Video Info */}
+        <h1 className="text-3xl font-bold mb-2">{movie.title}</h1>
+        <p className="text-white/70 mb-4">
+          {movie.release_date?.slice(0, 4)} • {movie.runtime} mins •{' '}
+          {movie.genres?.map((g) => g.name).join(', ')}
+        </p>
+        <p className="max-w-2xl text-white/80">{movie.overview}</p>
+
+        {/* ✅ Suggested Videos Section Updated */}
+        <div className="mt-10">
+          <h2 className="text-xl font-bold text-white mb-4">Suggested Videos</h2>
+          <div className="flex overflow-x-auto gap-4 hide-scrollbar pb-2">
+              {suggested.map((video) => (
+                <Link
+                    to={`/watch/${video.id}`}
+                    key={video.id}
+                    className="flex-shrink-0 w-[180px] sm:w-[200px] md:w-[220px]"
+                >
+                <img
+                    src={`https://image.tmdb.org/t/p/w500${video.poster_path}`}
+                    alt={video.title}
+                    className="w-full h-[250px] object-cover rounded hover:text-sky-500"
+                />
+                <p className="text-white mt-2 font-semibold truncate hover:text-sky-500 " title={video.title}>
+                    {video.title}
+                </p>
+                <p className="text-white/60 text-sm">
+                    {video.release_date?.slice(0, 4)} •{' '}
+                    {video.genre_ids
+                      ?.map((id) => {
+                      const genreMap = {
+                          28: 'Action',
+                          878: 'Sci-Fi',
+                          80: 'Crime',
+                          18: 'Drama',
+                      };
+                      return genreMap[id] || '';
+                      })
+                      .filter(Boolean)
+                      .join(', ') || 'Unknown Genre'}
+                </p>
+                </Link>
+              ))}
           </div>
-        )}
+        </div>
+
       </div>
-
-      {/* Video Info */}
-      <h1 className="text-3xl font-bold mb-2">{movie.title}</h1>
-      <p className="text-white/70 mb-4">
-        {movie.release_date?.slice(0, 4)} • {movie.runtime} mins •{' '}
-        {movie.genres?.map((g) => g.name).join(', ')}
-      </p>
-      <p className="max-w-2xl text-white/80">{movie.overview}</p>
-
-      {/* ✅ Suggested Videos Section Updated */}
-      <div className="mt-10">
-         <h2 className="text-xl font-bold text-white mb-4">Suggested Videos</h2>
-         <div className="flex overflow-x-auto gap-4 hide-scrollbar pb-2">
-            {suggested.map((video) => (
-               <Link
-                  to={`/watch/${video.id}`}
-                  key={video.id}
-                  className="flex-shrink-0 w-[180px] sm:w-[200px] md:w-[220px]"
-               >
-               <img
-                  src={`https://image.tmdb.org/t/p/w500${video.poster_path}`}
-                  alt={video.title}
-                  className="w-full h-[250px] object-cover rounded hover:text-sky-500"
-               />
-               <p className="text-white mt-2 font-semibold truncate hover:text-sky-500 " title={video.title}>
-                  {video.title}
-               </p>
-               <p className="text-white/60 text-sm">
-                  {video.release_date?.slice(0, 4)} •{' '}
-                  {video.genre_ids
-                     ?.map((id) => {
-                     const genreMap = {
-                        28: 'Action',
-                        878: 'Sci-Fi',
-                        80: 'Crime',
-                        18: 'Drama',
-                     };
-                     return genreMap[id] || '';
-                     })
-                     .filter(Boolean)
-                     .join(', ') || 'Unknown Genre'}
-               </p>
-               </Link>
-            ))}
-         </div>
-      </div>
-
     </div>
   );
 }

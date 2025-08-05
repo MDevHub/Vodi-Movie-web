@@ -12,7 +12,7 @@ import Sector9 from '../Components/Home Page/Sector9'
 
 const Page1 = () => {
 return (
-	<div>
+	<div className='mx-auto'>
 		<Home />
 		<Sector1 />
 		<Sector2 />
